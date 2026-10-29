@@ -1,0 +1,181 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | Sohan Portfolio Administration{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<!-- Enforce Dark Theme on document root immediately -->
+<script>
+    document.documentElement.dataset.theme = 'dark';
+    try { localStorage.setItem('theme', 'dark'); } catch (e) { }
+</script>
+<!-- Modern Tech Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap"
+    rel="stylesheet">
+<!-- Frontend Matching Custom Dark Tech Theme (Electric Blue & Cyan) -->
+<link rel="stylesheet" href="{% static 'admin/css/custom_admin.css' %}">
+{% endblock %}
+
+{% block branding %}
+<div id="site-name">
+    <a href="{% url 'admin:index' %}" class="custom-admin-logo">
+        <span class="logo-flame">⚡</span>
+        <span class="logo-title">SOHAN<span class="logo-dot">.</span></span>
+        <span class="logo-badge">ENTERPRISE ADMIN</span>
+    </a>
+</div>
+{% endblock %}
+
+{% block userlinks %}
+<a href="{% if debug %}http://localhost:5173{% else %}/{% endif %}" target="_blank" class="admin-top-btn live-btn"
+    title="Open the public React portfolio in a new tab">
+    <span>View Live Website</span>
+</a>
+<a href="{% url 'admin:api_contactmessage_changelist' %}" class="admin-top-inquiry-link" id="top-inquiries-link"
+    title="Client Contact Inquiries">
+    <span>Inquiries</span>
+    <span id="unread-inquiry-badge" class="inquiry-count-badge" style="display:none;">0</span>
+</a>
+<a href="{% url 'admin:password_change' %}" class="admin-top-link">
+    <span>Change password</span>
+</a>
+<form id="logout-form" method="post" action="{% url 'admin:logout' %}" class="admin-logout-form">
+    {% csrf_token %}
+    <button type="submit" class="admin-top-logout">Log out</button>
+</form>
+{% endblock %}
+
+{% block extrabody %}
+<!-- Floating Real-Time Cyber Toast Container -->
+<div id="admin-toast-container" class="admin-toast-container"></div>
+
+<script>
+    (function () {
+        // Web Audio Synthesizer - Clean Crystal Chime (Offline Native Sound Alert)
+        function playNotificationChime() {
+            try {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (!AudioCtx) return;
+                const ctx = new AudioCtx();
+                if (ctx.state === 'suspended') ctx.resume();
+
+                // Tone 1: High crisp bell (D5 -> A5)
+                const osc1 = ctx.createOscillator();
+                const gain1 = ctx.createGain();
+                osc1.type = 'sine';
+                osc1.frequency.setValueAtTime(587.33, ctx.currentTime);
+                osc1.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.15);
+                gain1.gain.setValueAtTime(0.35, ctx.currentTime);
+                gain1.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.8);
+                osc1.connect(gain1);
+                gain1.connect(ctx.destination);
+                osc1.start(ctx.currentTime);
+                osc1.stop(ctx.currentTime + 0.8);
+
+                // Tone 2: Harmonic shimmer
+                const osc2 = ctx.createOscillator();
+                const gain2 = ctx.createGain();
+                osc2.type = 'triangle';
+                osc2.frequency.setValueAtTime(880, ctx.currentTime + 0.12);
+                gain2.gain.setValueAtTime(0.2, ctx.currentTime + 0.12);
+                gain2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.9);
+                osc2.connect(gain2);
+                gain2.connect(ctx.destination);
+                osc2.start(ctx.currentTime + 0.12);
+                osc2.stop(ctx.currentTime + 0.9);
+            } catch (e) {
+                console.log('Audio notification:', e);
+            }
+        }
+
+        // Show Cyber Notification Toast
+        function showInquiryToast(data) {
+            const container = document.getElementById('admin-toast-container');
+            if (!container) return;
+
+            const toast = document.createElement('div');
+            toast.className = 'cyber-inquiry-toast';
+            toast.innerHTML = `
+            <div class="toast-glow-bar"></div>
+            <div class="toast-content">
+                <div class="toast-header">
+                    <div class="toast-title">
+                        <span class="toast-bell">🔔</span>
+                        <span>NEW CLIENT INQUIRY!</span>
+                    </div>
+                    <button class="toast-close-btn" onclick="this.closest('.cyber-inquiry-toast').remove()">✕</button>
+                </div>
+                <div class="toast-sender">
+                    <strong>${data.name}</strong> • <span class="toast-email">${data.email}</span>
+                </div>
+                <div class="toast-subject">
+                    <span class="subj-label">Subject:</span> ${data.subject}
+                </div>
+                <div class="toast-preview">"${data.message}"</div>
+                <div class="toast-actions">
+                    <a href="${data.admin_url}" class="toast-view-btn">
+                        <span>Read Full Message →</span>
+                    </a>
+                    <span class="toast-time">${data.created_at}</span>
+                </div>
+            </div>
+        `;
+
+            container.appendChild(toast);
+
+            // Auto remove after 14 seconds
+            setTimeout(() => {
+                if (toast && toast.parentNode) {
+                    toast.style.opacity = '0';
+                    toast.style.transform = 'translateX(100%)';
+                    setTimeout(() => toast.remove(), 400);
+                }
+            }, 14000);
+        }
+
+        // Polling Logic
+        let lastKnownId = null;
+
+        async function pollInquiries() {
+            try {
+                const url = '/api/poll-inquiries/' + (lastKnownId !== null ? `?last_id=${lastKnownId}` : '');
+                const res = await fetch(url);
+                if (!res.ok) return;
+                const data = await res.json();
+
+                // Update badge in top nav
+                const badge = document.getElementById('unread-inquiry-badge');
+                if (badge) {
+                    if (data.unread_count > 0) {
+                        badge.textContent = data.unread_count;
+                        badge.style.display = 'inline-flex';
+                    } else {
+                        badge.style.display = 'none';
+                    }
+                }
+
+                if (lastKnownId === null) {
+                    // First initialization, just save the latest_id without chiming
+                    lastKnownId = data.latest_id || 0;
+                } else if (data.has_new && data.latest && data.latest.id > lastKnownId) {
+                    // A brand new message arrived while the user is viewing admin!
+                    lastKnownId = data.latest.id;
+                    playNotificationChime();
+                    showInquiryToast(data.latest);
+                }
+            } catch (e) {
+                // Silently ignore network interruptions
+            }
+        }
+
+        // Initial check
+        pollInquiries();
+        // Poll every 5 seconds for rapid alerts
+        setInterval(pollInquiries, 5000);
+    })();
+</script>
+{% endblock extrabody %}

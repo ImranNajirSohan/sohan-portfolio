@@ -1,0 +1,505 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div id="content-main" class="custom-admin-dashboard">
+
+    <!-- 1. Top Executive Control Banner -->
+    <div class="exec-welcome-card">
+        <div class="welcome-left">
+            <div class="welcome-status-pill">
+                <span class="status-indicator-dot"></span>
+                <span class="status-text">Production Ready • Django 6 & MySQL Connected</span>
+            </div>
+            <h1 class="welcome-headline">Sohan Portfolio Control Center </h1>
+            <p class="welcome-subtext">
+                Manage all portfolio content, technical competencies, showcase projects, and real-time client inquiries
+                from this centralized headquarters.
+            </p>
+        </div>
+        <div class="welcome-actions">
+            <a href="{% if debug %}http://localhost:5173{% else %}/{% endif %}" target="_blank"
+                class="exec-btn live-btn">
+                <span>Open Live Portfolio</span>
+            </a>
+            <a href="{% url 'admin:api_contactmessage_changelist' %}" class="exec-btn inquiry-btn">
+                <span>Client Inquiries</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- 2. Section Header for API Modules -->
+    <div class="section-title-bar">
+        <div class="title-left">
+            <span class="section-gem-icon"></span>
+            <div>
+                <h2 class="section-heading">Portfolio API Content Modules</h2>
+                <p class="section-description">Rectangular management tiles connected directly to MySQL database & React
+                    frontend</p>
+            </div>
+        </div>
+        <div class="section-counter-badge">
+            <span>8 Active Modules</span>
+        </div>
+    </div>
+
+    <!-- 3. Modern Rectangle Shape Cards Grid for API Modules -->
+    <div class="rectangle-cards-grid">
+        {% for app in app_list %}
+        {% if app.app_label == 'api' %}
+        {% for model in app.models %}
+        {% with obj=model.object_name %}
+        <div class="rect-model-card">
+            <div class="card-top-hairline"></div>
+
+            <div class="card-header">
+                <div class="card-icon-box">
+                    {% if obj == 'Profile' %}👤
+                    {% elif obj == 'Project' %}🚀
+                    {% elif obj == 'Skill' %}⚡
+                    {% elif obj == 'Service' %}🛠️
+                    {% elif obj == 'Experience' %}💼
+                    {% elif obj == 'Testimonial' %}🌟
+                    {% elif obj == 'ContactMessage' %}📬
+                    {% elif obj == 'SiteSetting' %}⚙️
+                    {% else %}📦
+                    {% endif %}
+                </div>
+                <div class="card-meta">
+                    <span class="card-category-tag">
+                        {% if obj == 'Profile' %}CORE IDENTITY
+                        {% elif obj == 'Project' %}SHOWCASE
+                        {% elif obj == 'Skill' %}COMPETENCIES
+                        {% elif obj == 'Service' %}SOLUTIONS
+                        {% elif obj == 'Experience' %}TIMELINE
+                        {% elif obj == 'Testimonial' %}REVIEWS
+                        {% elif obj == 'ContactMessage' %}INBOX
+                        {% elif obj == 'SiteSetting' %}CONFIG
+                        {% else %}MODULE
+                        {% endif %}
+                    </span>
+                    <h3 class="card-title">{{ model.name }}</h3>
+                </div>
+            </div>
+
+            <p class="card-description">
+                {% if obj == 'Profile' %}
+                Edit your developer name, animated typewriter roles, full bio, avatar photo, resume PDF, and contact
+                coordinates.
+                {% elif obj == 'Project' %}
+                Showcase completed web apps, tech stack tags (Python, Laravel, React), live demo URLs, and GitHub repos.
+                {% elif obj == 'Skill' %}
+                Manage programming skills, proficiency ratings (1-100%), backend & frontend categories, and featured
+                badges.
+                {% elif obj == 'Service' %}
+                Define solutions offered to clients (Django APIs, Laravel SaaS, React UI) and feature bullet lists.
+                {% elif obj == 'Experience' %}
+                Maintain your career milestones, software engineering roles, company history, and educational degrees.
+                {% elif obj == 'Testimonial' %}
+                Manage client recommendations, 5-star ratings, quotes, company names, and client profile avatars.
+                {% elif obj == 'ContactMessage' %}
+                Read client messages sent via the React portfolio contact form with name, email, subject, and timestamp.
+                {% elif obj == 'SiteSetting' %}
+                Customize hero headline badges, call-to-action text, custom buttons, and global site preferences.
+                {% else %}
+                Manage all records, schema data, and relational entries for {{ model.name }}.
+                {% endif %}
+            </p>
+
+            <div class="card-actions-row">
+                {% if model.admin_url %}
+                <a href="{{ model.admin_url }}" class="rect-action-btn primary" title="View all {{ model.name }}">
+                    <span>Manage List ↗</span>
+                </a>
+                {% endif %}
+                {% if model.add_url %}
+                <a href="{{ model.add_url }}" class="rect-action-btn add-btn" title="Add new {{ model.name }}">
+                    <span>+ Add New</span>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        {% endwith %}
+        {% endfor %}
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    <!-- 4. Authentication & Security Section -->
+    {% for app in app_list %}
+    {% if app.app_label == 'auth' %}
+    <div class="section-title-bar mt-8">
+        <div class="title-left">
+            <span class="section-gem-icon"></span>
+            <div>
+                <h2 class="section-heading">System & User Access Security</h2>
+                <p class="section-description">Administrative user credentials and permissions</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="rectangle-cards-grid security-grid">
+        {% for model in app.models %}
+        <div class="rect-model-card security-card">
+            <div class="card-top-hairline sec"></div>
+            <div class="card-header">
+                <div class="card-icon-box sec">
+                    {% if model.object_name == 'User' %}👥{% else %}🛡️{% endif %}
+                </div>
+                <div class="card-meta">
+                    <span class="card-category-tag sec">ACCESS CONTROL</span>
+                    <h3 class="card-title">{{ model.name }}</h3>
+                </div>
+            </div>
+            <p class="card-description">
+                {% if model.object_name == 'User' %}
+                Manage superuser login accounts, staff roles, administrator passwords, and active access status.
+                {% else %}
+                Organize permission groups and authorization matrices across database models.
+                {% endif %}
+            </p>
+            <div class="card-actions-row">
+                {% if model.admin_url %}
+                <a href="{{ model.admin_url }}" class="rect-action-btn primary">
+                    <span>Manage List ↗</span>
+                </a>
+                {% endif %}
+                {% if model.add_url %}
+                <a href="{{ model.add_url }}" class="rect-action-btn add-btn">
+                    <span>+ Add New</span>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endfor %}
+
+</div>
+
+<style>
+    /* --------------------------------------------------------------------------
+   Custom Executive Dashboard Styles
+   -------------------------------------------------------------------------- */
+    .custom-admin-dashboard {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    /* 1. Welcome Card */
+    .exec-welcome-card {
+        background: linear-gradient(135deg, rgba(16, 25, 45, 0.95) 0%, rgba(12, 19, 36, 0.95) 100%);
+        border: 1px solid rgba(59, 130, 246, 0.28);
+        border-radius: 16px;
+        padding: 28px 32px;
+        margin-bottom: 32px;
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4), 0 0 25px rgba(59, 130, 246, 0.12);
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .exec-welcome-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #3B82F6 0%, #06B6D4 50%, #10B981 100%);
+    }
+
+    .welcome-status-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        color: #38BDF8;
+        background: rgba(6, 182, 212, 0.12);
+        border: 1px solid rgba(56, 189, 248, 0.3);
+        padding: 5px 14px;
+        border-radius: 9999px;
+        margin-bottom: 12px;
+    }
+
+    .status-indicator-dot {
+        width: 7px;
+        height: 7px;
+        background: #10B981;
+        border-radius: 50%;
+        box-shadow: 0 0 10px #10B981;
+    }
+
+    .welcome-headline {
+        font-size: 24px !important;
+        font-weight: 800 !important;
+        color: #FFFFFF !important;
+        margin: 0 0 8px 0 !important;
+        letter-spacing: -0.4px;
+    }
+
+    .welcome-subtext {
+        font-size: 13px !important;
+        color: #94A3B8 !important;
+        margin: 0 !important;
+        max-width: 680px;
+        line-height: 1.6;
+    }
+
+    .welcome-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+    }
+
+    .exec-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        font-weight: 700;
+        padding: 10px 20px;
+        border-radius: 10px;
+        text-decoration: none !important;
+        transition: all 0.2s ease;
+    }
+
+    .exec-btn.live-btn {
+        background: linear-gradient(135deg, #3B82F6 0%, #06B6D4 100%);
+        color: #FFFFFF !important;
+        box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4);
+    }
+
+    .exec-btn.live-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 22px rgba(6, 182, 212, 0.6);
+        filter: brightness(1.1);
+    }
+
+    .exec-btn.inquiry-btn {
+        background: #131E35;
+        color: #38BDF8 !important;
+        border: 1px solid rgba(56, 189, 248, 0.35);
+    }
+
+    .exec-btn.inquiry-btn:hover {
+        background: #1A2846;
+        color: #FFFFFF !important;
+        border-color: #38BDF8;
+    }
+
+    /* 2. Section Headers */
+    .section-title-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 30px 0 18px 0;
+        padding-bottom: 12px;
+        border-bottom: 1px solid rgba(59, 130, 246, 0.16);
+    }
+
+    .section-title-bar.mt-8 {
+        margin-top: 40px;
+    }
+
+    .title-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .section-gem-icon {
+        font-size: 24px;
+    }
+
+    .section-heading {
+        font-size: 18px !important;
+        font-weight: 800 !important;
+        color: #FFFFFF !important;
+        margin: 0 !important;
+        letter-spacing: -0.3px;
+    }
+
+    .section-description {
+        font-size: 12px !important;
+        color: #64748B !important;
+        margin: 2px 0 0 0 !important;
+    }
+
+    .section-counter-badge {
+        background: rgba(59, 130, 246, 0.12);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        color: #38BDF8;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 12px;
+        border-radius: 9999px;
+        letter-spacing: 0.5px;
+    }
+
+    /* 3. Rectangle Cards Grid */
+    .rectangle-cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+        gap: 20px;
+    }
+
+    .rect-model-card {
+        background: linear-gradient(160deg, #10192D 0%, #0C1324 100%);
+        border: 1px solid rgba(59, 130, 246, 0.22);
+        border-radius: 14px;
+        padding: 22px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .rect-model-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(56, 189, 248, 0.55);
+        box-shadow: 0 14px 32px rgba(0, 0, 0, 0.45), 0 0 24px rgba(59, 130, 246, 0.18);
+        background: linear-gradient(160deg, #131E35 0%, #0E1628 100%);
+    }
+
+    .card-top-hairline {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #3B82F6 0%, #06B6D4 100%);
+        opacity: 0.7;
+        transition: opacity 0.2s ease;
+    }
+
+    .rect-model-card:hover .card-top-hairline {
+        opacity: 1;
+        box-shadow: 0 0 10px #38BDF8;
+    }
+
+    .card-top-hairline.sec {
+        background: linear-gradient(90deg, #6366F1 0%, #8B5CF6 100%);
+    }
+
+    .card-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 14px;
+    }
+
+    .card-icon-box {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.18) 0%, rgba(6, 182, 212, 0.18) 100%);
+        border: 1px solid rgba(56, 189, 248, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        flex-shrink: 0;
+    }
+
+    .card-icon-box.sec {
+        background: rgba(99, 102, 241, 0.15);
+        border-color: rgba(139, 92, 246, 0.3);
+    }
+
+    .card-meta {
+        flex: 1;
+    }
+
+    .card-category-tag {
+        display: inline-block;
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 0.8px;
+        color: #38BDF8;
+        text-transform: uppercase;
+        margin-bottom: 2px;
+    }
+
+    .card-category-tag.sec {
+        color: #A78BFA;
+    }
+
+    .card-title {
+        font-size: 16px !important;
+        font-weight: 800 !important;
+        color: #FFFFFF !important;
+        margin: 0 !important;
+        letter-spacing: -0.2px;
+    }
+
+    .card-description {
+        font-size: 12px !important;
+        color: #94A3B8 !important;
+        line-height: 1.55 !important;
+        margin: 0 0 18px 0 !important;
+        min-height: 52px;
+    }
+
+    .card-actions-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding-top: 14px;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .rect-action-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 8px 14px;
+        border-radius: 8px;
+        text-decoration: none !important;
+        transition: all 0.2s ease;
+    }
+
+    .rect-action-btn.primary {
+        flex: 1;
+        background: linear-gradient(135deg, #3B82F6 0%, #06B6D4 100%);
+        color: #FFFFFF !important;
+        box-shadow: 0 2px 10px rgba(59, 130, 246, 0.35);
+    }
+
+    .rect-action-btn.primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 14px rgba(6, 182, 212, 0.5);
+        filter: brightness(1.1);
+    }
+
+    .rect-action-btn.add-btn {
+        background: rgba(16, 185, 129, 0.12);
+        border: 1px solid rgba(16, 185, 129, 0.35);
+        color: #34D399 !important;
+    }
+
+    .rect-action-btn.add-btn:hover {
+        background: rgba(16, 185, 129, 0.25);
+        color: #FFFFFF !important;
+    }
+
+    /* Security Cards Grid Adjustment */
+    .security-grid {
+        grid-template-columns: repeat(auto-fill, minmax(290px, 380px));
+    }
+</style>
+{% endblock %}

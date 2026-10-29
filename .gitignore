@@ -1,0 +1,49 @@
+# ==============================================================================
+# SOHAN PORTFOLIO - ROOT GITIGNORE
+# ==============================================================================
+
+# Python & Django
+__pycache__/
+*.py[cod]
+*$py.class
+*.sqlite3
+db.sqlite3
+backend/staticfiles/
+staticfiles/
+
+# Environments & Sensitive Credentials
+.env
+.env.*
+backend/.env
+backend/.env.*
+!.env.example
+!backend/.env.example
+!**/.env.example
+venv/
+backend/venv/
+env/
+ENV/
+
+# Node.js & React Frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+dist/
+.npm/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Operating System & IDEs
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+

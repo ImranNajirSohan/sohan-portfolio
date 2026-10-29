@@ -1,0 +1,579 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block title %}Terminal Login | Sohan Portfolio Security Console{% endblock %}
+
+{% block bodyclass %}{{ block.super }} login cyber-login-body{% endblock %}
+
+{% block usertools %}{% endblock %}
+{% block nav-global %}{% endblock %}
+{% block nav-sidebar %}{% endblock %}
+{% block content_title %}{% endblock %}
+{% block nav-breadcrumbs %}{% endblock %}
+
+{% block content %}
+<!-- 1. Interactive Hacker Matrix Digital Rain Canvas -->
+<canvas id="cyber-matrix-canvas"></canvas>
+
+<!-- 2. Cyberpunk Scanline / Ambient Grid Overlay -->
+<div class="cyber-grid-overlay"></div>
+
+<!-- 3. Centralized Cyber Security Terminal Box -->
+<div class="cyber-terminal-wrapper">
+    <div class="cyber-terminal-card">
+        
+        <!-- Terminal Window Titlebar with Mac/Linux Control Dots -->
+        <div class="terminal-titlebar">
+            <div class="terminal-dots">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+            </div>
+            <div class="terminal-title-text">
+                <span class="prompt-user">root@sohan-systems</span>:<span class="prompt-path">/admin</span># <span class="prompt-cmd">authenticate</span>
+            </div>
+            <div class="terminal-status-badge">
+                <span class="live-dot"></span>
+                <span>TLS-AES256</span>
+            </div>
+        </div>
+
+        <!-- Terminal Body -->
+        <div class="terminal-body">
+            
+            <!-- Branding Header -->
+            <div class="cyber-brand-header">
+                <div class="brand-flame-icon">⚡</div>
+                <h1 class="brand-main-title">SOHAN<span class="brand-cyan-dot">.</span></h1>
+                <span class="brand-sub-badge">ENTERPRISE CYBER ADMIN</span>
+            </div>
+
+            <!-- Terminal Warning Message -->
+            <div class="terminal-auth-notice">
+                <span class="terminal-arrow">&gt;&gt;</span>
+                <span class="typing-notice">RESTRICTED ACCESS // AUTHORIZED PERSONNEL ONLY</span>
+            </div>
+
+            <!-- Error Notifications -->
+            {% if form.errors and not form.non_field_errors %}
+            <div class="cyber-error-box">
+                <span class="err-icon">⚠️</span>
+                <span>ACCESS DENIED: Please correct input errors below.</span>
+            </div>
+            {% endif %}
+
+            {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+            <div class="cyber-error-box">
+                <span class="err-icon">🛑</span>
+                <span>{{ error }}</span>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            <!-- Login Form -->
+            <form action="{{ app_path }}" method="post" id="login-form" class="cyber-form">
+                {% csrf_token %}
+
+                <div class="cyber-input-group">
+                    <label for="id_username" class="cyber-label">
+                        <span class="label-prefix">&gt;_</span> OPERATOR USERNAME
+                    </label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">👤</span>
+                        <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username" placeholder="Enter username (e.g. admin)" value="{{ form.username.value|default:'' }}">
+                    </div>
+                </div>
+
+                <div class="cyber-input-group">
+                    <label for="id_password" class="cyber-label">
+                        <span class="label-prefix">***</span> ENCRYPTION KEY / PASSWORD
+                    </label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">🔑</span>
+                        <input type="password" name="password" autocomplete="current-password" required id="id_password" placeholder="Enter security password">
+                        <input type="hidden" name="next" value="{{ next }}">
+                    </div>
+                </div>
+
+                <div class="cyber-submit-row">
+                    <button type="submit" class="cyber-submit-btn">
+                        <span class="btn-scan-line"></span>
+                        <span class="btn-text">INITIALIZE SECURE LOGIN ⚡</span>
+                    </button>
+                </div>
+            </form>
+
+            <!-- Terminal Footer Info -->
+            <div class="terminal-footer">
+                <div class="footer-system-status">
+                    <span>SYS: ONLINE</span>
+                    <span class="sep">•</span>
+                    <span>PORT: 8000</span>
+                    <span class="sep">•</span>
+                    <span>DB: MYSQL</span>
+                </div>
+                <div class="footer-back-link">
+                    <a href="{% if debug %}http://localhost:5173{% else %}/{% endif %}" class="back-link">
+                        <span>← Return to Public Portfolio</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Matrix Digital Rain Canvas Animation Script -->
+<script>
+(function() {
+    const canvas = document.getElementById('cyber-matrix-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', function() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        columns = Math.floor(width / fontSize);
+        drops = [];
+        for (let i = 0; i < columns; i++) {
+            drops[i] = Math.floor(Math.random() * -50);
+        }
+    });
+
+    // Hacker character set: Binary, Hex, Tech symbols, Greek/Math glyphs
+    const chars = '010101010101ABCDEFXYZλπμ⚡><{}[];:+-=*/%#@&_$~!';
+    const fontSize = 16;
+    let columns = Math.floor(width / fontSize);
+    let drops = [];
+
+    for (let i = 0; i < columns; i++) {
+        drops[i] = Math.floor(Math.random() * -50);
+    }
+
+    // Color palette matching the frontend: Electric Blue, Cyan, Emerald
+    const headColors = ['#FFFFFF', '#38BDF8', '#34D399'];
+    const bodyColors = ['#06B6D4', '#3B82F6', '#0284C7', '#10B981'];
+
+    function drawMatrix() {
+        // Soft fading dark obsidian overlay for trailing rain effect
+        ctx.fillStyle = 'rgba(10, 15, 29, 0.08)';
+        ctx.fillRect(0, 0, width, height);
+
+        ctx.font = '14px "Fira Code", monospace';
+
+        for (let i = 0; i < drops.length; i++) {
+            const char = chars[Math.floor(Math.random() * chars.length)];
+            const x = i * fontSize;
+            const y = drops[i] * fontSize;
+
+            // Head character glows brighter
+            if (Math.random() > 0.85) {
+                ctx.fillStyle = headColors[Math.floor(Math.random() * headColors.length)];
+                ctx.shadowColor = '#38BDF8';
+                ctx.shadowBlur = 8;
+            } else {
+                ctx.fillStyle = bodyColors[Math.floor(Math.random() * bodyColors.length)];
+                ctx.shadowBlur = 0;
+            }
+
+            ctx.fillText(char, x, y);
+
+            if (y > height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+            drops[i]++;
+        }
+
+        requestAnimationFrame(drawMatrix);
+    }
+
+    drawMatrix();
+})();
+</script>
+
+<style>
+/* --------------------------------------------------------------------------
+   Cyber Hacker Login Screen Styling
+   -------------------------------------------------------------------------- */
+body.cyber-login-body {
+    background-color: #060A14 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    min-height: 100vh !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+    overflow-x: hidden !important;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+}
+
+body.cyber-login-body #container {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 100vh !important;
+}
+
+body.cyber-login-body #header {
+    display: none !important;
+}
+
+body.cyber-login-body #content {
+    background: transparent !important;
+    padding: 20px !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+/* 1. Matrix Digital Rain Canvas */
+#cyber-matrix-canvas {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+    opacity: 0.75 !important;
+}
+
+/* 2. Cyber Grid & Radial Backdrop */
+.cyber-grid-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 50% 30%, rgba(59, 130, 246, 0.16) 0%, rgba(6, 182, 212, 0.08) 40%, #060A14 85%),
+        linear-gradient(rgba(10, 15, 29, 0.5) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(10, 15, 29, 0.5) 1px, transparent 1px);
+    background-size: 100% 100%, 32px 32px, 32px 32px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* 3. Central Cyber Terminal Card */
+.cyber-terminal-wrapper {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 480px;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.cyber-terminal-card {
+    background: rgba(13, 21, 39, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    border-radius: 16px;
+    box-shadow: 
+        0 24px 60px rgba(0, 0, 0, 0.7),
+        0 0 35px rgba(59, 130, 246, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.cyber-terminal-card:hover {
+    border-color: rgba(56, 189, 248, 0.65);
+    box-shadow: 
+        0 28px 70px rgba(0, 0, 0, 0.8),
+        0 0 45px rgba(6, 182, 212, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Terminal Window Header / Titlebar */
+.terminal-titlebar {
+    background: rgba(10, 15, 29, 0.95);
+    border-bottom: 1px solid rgba(59, 130, 246, 0.25);
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Fira Code', monospace;
+    font-size: 11px;
+}
+
+.terminal-dots {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dot.red { background: #EF4444; box-shadow: 0 0 6px rgba(239, 68, 68, 0.6); }
+.dot.yellow { background: #F59E0B; box-shadow: 0 0 6px rgba(245, 158, 11, 0.6); }
+.dot.green { background: #10B981; box-shadow: 0 0 6px rgba(16, 185, 129, 0.6); }
+
+.terminal-title-text {
+    color: #94A3B8;
+    letter-spacing: 0.3px;
+}
+
+.prompt-user { color: #38BDF8; font-weight: 700; }
+.prompt-path { color: #10B981; }
+.prompt-cmd { color: #FFFFFF; }
+
+.terminal-status-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    font-weight: 800;
+    color: #10B981;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    padding: 2px 8px;
+    border-radius: 9999px;
+    letter-spacing: 0.5px;
+}
+
+.live-dot {
+    width: 5px;
+    height: 5px;
+    background: #10B981;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #10B981;
+    animation: livePulse 2s infinite;
+}
+
+@keyframes livePulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* Terminal Body */
+.terminal-body {
+    padding: 28px 32px 24px 32px;
+}
+
+/* Branding Header */
+.cyber-brand-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.brand-flame-icon {
+    font-size: 28px;
+    filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.9));
+    margin-bottom: 6px;
+}
+
+.brand-main-title {
+    font-size: 26px !important;
+    font-weight: 900 !important;
+    letter-spacing: -0.5px;
+    color: #FFFFFF !important;
+    margin: 0 !important;
+    display: inline-block !important;
+}
+
+.brand-cyan-dot {
+    color: #38BDF8 !important;
+}
+
+.brand-sub-badge {
+    display: block;
+    margin-top: 6px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #38BDF8;
+    text-transform: uppercase;
+}
+
+/* Terminal Notice */
+.terminal-auth-notice {
+    background: rgba(6, 182, 212, 0.08);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-family: 'Fira Code', monospace;
+    font-size: 11px;
+    color: #38BDF8;
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.terminal-arrow {
+    color: #10B981;
+    font-weight: 800;
+}
+
+/* Errors */
+.cyber-error-box {
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #FCA5A5;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+}
+
+/* Form Styling */
+.cyber-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.cyber-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.cyber-label {
+    font-family: 'Fira Code', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: #94A3B8;
+    letter-spacing: 0.5px;
+}
+
+.label-prefix {
+    color: #38BDF8;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 14px;
+    font-size: 14px;
+    color: #64748B;
+    pointer-events: none;
+}
+
+.cyber-input-group input[type="text"],
+.cyber-input-group input[type="password"] {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 12px 14px 12px 42px !important;
+    background: #070B14 !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+    border-radius: 10px !important;
+    color: #FFFFFF !important;
+    font-family: 'Fira Code', monospace !important;
+    font-size: 13px !important;
+    transition: all 0.2s ease !important;
+}
+
+.cyber-input-group input:focus {
+    border-color: #38BDF8 !important;
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25), 0 0 16px rgba(59, 130, 246, 0.25) !important;
+    outline: none !important;
+}
+
+.cyber-input-group input::placeholder {
+    color: #475569 !important;
+    font-size: 12px;
+}
+
+/* Submit Button */
+.cyber-submit-row {
+    margin-top: 8px;
+}
+
+.cyber-submit-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #3B82F6 0%, #06B6D4 100%);
+    color: #FFFFFF !important;
+    font-family: 'Fira Code', monospace;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.45);
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.cyber-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 26px rgba(6, 182, 212, 0.6);
+    filter: brightness(1.1);
+}
+
+.cyber-submit-btn:active {
+    transform: translateY(0);
+}
+
+/* Terminal Footer */
+.terminal-footer {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-system-status {
+    font-family: 'Fira Code', monospace;
+    font-size: 10px;
+    color: #64748B;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-system-status .sep {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.back-link {
+    font-size: 12px;
+    color: #38BDF8;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.15s ease;
+}
+
+.back-link:hover {
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+</style>
+{% endblock %}
+
