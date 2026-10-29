@@ -1,4 +1,4 @@
-# ⚡ Sohan's Full-Stack Dynamic Developer Portfolio
+# Sohan's Full-Stack Dynamic Developer Portfolio
 
 [![Django](https://img.shields.io/badge/Django-6.1-092E20?style=for-the-badge&logo=django&logoColor=white)](https://www.djangoproject.com/)
 [![React](https://img.shields.io/badge/React-18.x-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
@@ -13,39 +13,39 @@
 
 ---
 
-## ✨ প্রধান বৈশিষ্ট্যসমূহ (Key Features)
+## প্রধান বৈশিষ্ট্যসমূহ (Key Features)
 
-- 🎨 **Electric Blue, Cyan & Emerald Palette**: মসৃণ গ্লাস-মরফিজম (Glassmorphism), টেক্সট গ্রেডিয়েন্ট ও ডাইনামিক লাইট এফেক্ট।
-- 🧑‍💻 **কাস্টম সাইবার হ্যাকার অ্যাডমিন থিম**:
+-  **Electric Blue, Cyan & Emerald Palette**: মসৃণ গ্লাস-মরফিজম (Glassmorphism), টেক্সট গ্রেডিয়েন্ট ও ডাইনামিক লাইট এফেক্ট।
+-  **কাস্টম সাইবার হ্যাকার অ্যাডমিন থিম**:
   - Django Admin Login পেজে ইন্টারেক্টিভ **Matrix Digital Rain Canvas Animation**।
   - অ্যাডমিন ড্যাশবোর্ডে মডার্ন **রেক্ট্যাঙ্গুলার কার্ড গ্রিড (Rectangle Card Grid)** ডিজাইন।
-- 🔔 **রিয়েল-টাইম অডিও ও ভিজ্যুয়াল নোটিফিকেশন**:
+-  **রিয়েল-টাইম অডিও ও ভিজ্যুয়াল নোটিফিকেশন**:
   - ফ্রন্টএন্ড থেকে কোনো ভিজিটর মেসেজ পাঠালে Django Admin-এ স্বয়ংক্রিয়ভাবে **Web Audio API Synth Chime Sound** বেজে উঠবে।
   - স্ক্রিনের উপরে ভেসে উঠবে **Floating Cyber Alert Toast**।
-- 📧 **অটোমেটিক ইমেইল ডিসপ্যাচ**: ভিজিটরের মেসেজ সাথে সাথে অ্যাডমিনের ইমেইলে (`sohanuddin404@gmail.com`) ফরোয়ার্ড করার ইন্টিগ্রেশন (সাপোর্টস Gmail App Password ও কনসোল ব্যাকআপ)।
-- ⚡ **RESTful API আর্কিটেকচার**: Django REST Framework (DRF) দিয়ে সুপারফাস্ট ডাটা লোডিং ও ক্যাশিং।
-- 📱 **সম্পূর্ণ রেসপন্সিভ**: মোবাইল, ট্যাবলেট ও বড় মনিটরে নিখুঁত প্রদর্শন।
-- 🛡️ **সুরক্ষিত ও ফলব্যাক রেডি**: ব্যাকএন্ড সাময়িকভাবে অফলাইন থাকলেও ফ্রন্টএন্ড ক্র্যাশ করবে না; অফলাইন ফলব্যাক ডাটা স্বয়ংক্রিয়ভাবে প্রদর্শিত হবে।
+- **অটোমেটিক ইমেইল ডিসপ্যাচ**: ভিজিটরের মেসেজ সাথে সাথে অ্যাডমিনের ইমেইলে (`sohanuddin404@gmail.com`) ফরোয়ার্ড করার ইন্টিগ্রেশন (সাপোর্টস Gmail App Password ও কনসোল ব্যাকআপ)।
+-  **RESTful API আর্কিটেকচার**: Django REST Framework (DRF) দিয়ে সুপারফাস্ট ডাটা লোডিং ও ক্যাশিং।
+-  **সম্পূর্ণ রেসপন্সিভ**: মোবাইল, ট্যাবলেট ও বড় মনিটরে নিখুঁত প্রদর্শন।
+-  **সুরক্ষিত ও ফলব্যাক রেডি**: ব্যাকএন্ড সাময়িকভাবে অফলাইন থাকলেও ফ্রন্টএন্ড ক্র্যাশ করবে না; অফলাইন ফলব্যাক ডাটা স্বয়ংক্রিয়ভাবে প্রদর্শিত হবে।
 
 ---
 
-## 🏗️ সিস্টেম আর্কিটেকচার (System Architecture)
+##  সিস্টেম আর্কিটেকচার (System Architecture)
 
 ```mermaid
 flowchart LR
-    Visitor["🌐 Visitor / Recruiter"] -->|Browses UI| React["⚛️ React Frontend (:5173)"]
-    React -->|GET /api/portfolio/| Django["🐍 Django REST API (:8000)"]
+    Visitor["Visitor / Recruiter"] -->|Browses UI| React[" React Frontend (:5173)"]
+    React -->|GET /api/portfolio/| Django[" Django REST API (:8000)"]
     React -->|POST /api/contact/| Django
     Django -->|CRUD Queries| DB[("🗄️ MySQL Database (:3306)")]
-    Admin["👨‍💻 Sohan Admin"] -->|Hacker Login & CMS| DjangoAdmin["🛡️ Django Cyber Admin (:8000/admin/)"]
+    Admin[" Sohan Admin"] -->|Hacker Login & CMS| DjangoAdmin[" Django Cyber Admin (:8000/admin/)"]
     DjangoAdmin -->|Live Chime Sound & Toast| DjangoAdmin
     DjangoAdmin -->|Manages Content| DB
-    Django -->|SMTP Email Alert| Email["📬 sohanuddin404@gmail.com"]
+    Django -->|SMTP Email Alert| Email["sohanuddin404@gmail.com"]
 ```
 
 ---
 
-## 🗄️ ডাটাবেজ কনফিগারেশন (MySQL)
+## ডাটাবেজ কনফিগারেশন (MySQL)
 
 প্রজেক্টটি **MySQL** ডাটাবেজের সাথে সরাসরি কানেক্টেড:
 - **Database Engine**: MySQL (`django.db.backends.mysql` via `PyMySQL`)
@@ -57,7 +57,7 @@ flowchart LR
 
 ---
 
-## 🚀 লোকাল সেটআপ গাইড (Installation & Setup)
+##  লোকাল সেটআপ গাইড (Installation & Setup)
 
 ### ১. রিপোজিটরি ক্লোন করুন
 ```bash
@@ -117,7 +117,7 @@ Windows ব্যবহারকারীদের জন্য রুট ডি
 
 ---
 
-## 🌐 সার্ভিস ইউআরএল ও পোর্ট (Local Endpoints)
+##  সার্ভিস ইউআরএল ও পোর্ট (Local Endpoints)
 
 | কম্পোনেন্ট | ইউআরএল | বিবরণ |
 |---|---|---|
@@ -128,7 +128,7 @@ Windows ব্যবহারকারীদের জন্য রুট ডি
 
 ---
 
-## 🔐 অ্যাডমিন লগইন (Default Credentials)
+##  অ্যাডমিন লগইন (Default Credentials)
 
 - **Login URL**: [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
 - **Username**: `admin`
@@ -137,7 +137,7 @@ Windows ব্যবহারকারীদের জন্য রুট ডি
 
 ---
 
-## 📁 প্রজেক্ট স্ট্রাকচার (Project Structure)
+##  প্রজেক্ট স্ট্রাকচার (Project Structure)
 
 ```
 sohan/
@@ -187,7 +187,7 @@ sohan/
 
 ---
 
-## 🛠️ ব্যাকএন্ড থেকে যা যা নিয়ন্ত্রণ করা যায় (CMS Controls)
+##  ব্যাকএন্ড থেকে যা যা নিয়ন্ত্রণ করা যায় (CMS Controls)
 
 1. **Personal Profile**: নাম, ডেজিগনেশন, একাধিক টাইপরাইটার রোলস, বায়ো, প্রোফাইল ছবি, সিভি (Resume PDF), ফোন, ইমেইল, লোকেশন ও সোশ্যাল মিডিয়া লিংকস।
 2. **Skills**: স্কিল নাম, পার্সেন্টেজ লেভেল (১-১০০%), ক্যাটাগরি (Frontend, Backend, Database, Tools)।
