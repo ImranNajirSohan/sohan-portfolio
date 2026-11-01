@@ -160,6 +160,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # Media uploads (Profile avatars, project screenshots, resume files)
 MEDIA_URL = '/media/'

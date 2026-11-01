@@ -1,0 +1,1224 @@
+/* ==========================================================================
+   SOHAN PORTFOLIO - ENTERPRISE DJANGO ADMIN THEME
+   Theme: Electric Blue (#3B82F6) + Cyan (#06B6D4) + Neon Emerald (#10B981)
+   Matching 100% to the Modern Slate Tech Frontend (#0A0F1D / #0F172A).
+   Enhanced with Modern Rectangle-Shape Component Architecture.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Unconditional CSS Variable Overrides (All Themes & Modes)
+   -------------------------------------------------------------------------- */
+:root,
+html,
+html[data-theme="light"],
+html[data-theme="dark"],
+html[data-theme="auto"] {
+  /* Matching Brand Colors */
+  --brand-blue: #3B82F6;
+  --brand-blue-hover: #2563EB;
+  --brand-cyan: #06B6D4;
+  --brand-cyan-light: #38BDF8;
+  --brand-emerald: #10B981;
+  --brand-mint: #00E599;
+
+  /* Surfaces & Backgrounds (Same as React Frontend) */
+  --bg-deep: #0A0F1D;
+  --bg-surface: #0F172A;
+  --bg-card: #131D31;
+  --bg-card-hover: #1A2640;
+  --bg-card-row-even: #0E1628;
+  --bg-input: #070B14;
+
+  /* Text Colors */
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
+  --text-dim: #64748B;
+
+  /* Borders */
+  --border-subtle: rgba(59, 130, 246, 0.2);
+  --border-glow: rgba(56, 189, 248, 0.38);
+
+  /* Overriding Native Django Admin CSS Variables */
+  --primary: #3B82F6 !important;
+  --secondary: #0F172A !important;
+  --accent: #06B6D4 !important;
+  --primary-fg: #FFFFFF !important;
+
+  --body-fg: #F1F5F9 !important;
+  --body-bg: #0A0F1D !important;
+  --body-quiet-color: #94A3B8 !important;
+  --body-medium-color: #CBD5E1 !important;
+  --body-loud-color: #FFFFFF !important;
+
+  --header-color: #FFFFFF !important;
+  --header-branding-color: #38BDF8 !important;
+  --header-bg: #0C1324 !important;
+  --header-link-color: #38BDF8 !important;
+
+  --breadcrumbs-fg: #94A3B8 !important;
+  --breadcrumbs-link-fg: #38BDF8 !important;
+  --breadcrumbs-bg: #0A0F1D !important;
+
+  --link-fg: #38BDF8 !important;
+  --link-hover-color: #60A5FA !important;
+  --link-selected-fg: #3B82F6 !important;
+
+  --hairline-color: rgba(59, 130, 246, 0.16) !important;
+  --border-color: rgba(59, 130, 246, 0.28) !important;
+
+  --darkened-bg: #0F172A !important;
+  --selected-bg: #1A2640 !important;
+  --selected-row: rgba(59, 130, 246, 0.18) !important;
+
+  --button-fg: #FFFFFF !important;
+  --button-bg: #3B82F6 !important;
+  --button-hover-bg: #2563EB !important;
+  --default-button-bg: #3B82F6 !important;
+  --default-button-hover-bg: #06B6D4 !important;
+
+  --object-tools-fg: #FFFFFF !important;
+  --object-tools-bg: #3B82F6 !important;
+  --object-tools-hover-bg: #06B6D4 !important;
+
+  color-scheme: dark !important;
+}
+
+/* --------------------------------------------------------------------------
+   2. Global Typography & Core Resets
+   -------------------------------------------------------------------------- */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  background-color: var(--bg-deep) !important;
+  color: var(--text-main) !important;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  padding: 0;
+}
+
+#container {
+  background-color: var(--bg-deep) !important;
+  min-height: 100vh;
+}
+
+.main {
+  background-color: var(--bg-deep) !important;
+}
+
+#content {
+  padding: 28px 36px !important;
+  background-color: var(--bg-deep) !important;
+}
+
+#content h1 {
+  font-size: 24px !important;
+  font-weight: 800 !important;
+  color: #FFFFFF !important;
+  letter-spacing: -0.5px;
+  margin: 0 0 22px 0 !important;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#content h1::after {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--brand-cyan-light);
+  box-shadow: 0 0 10px var(--brand-cyan-light);
+}
+
+/* --------------------------------------------------------------------------
+   3. Header Navigation (#header)
+   -------------------------------------------------------------------------- */
+#header {
+  background: linear-gradient(180deg, #101A2F 0%, #0C1324 100%) !important;
+  border-bottom: 1px solid var(--border-subtle) !important;
+  padding: 12px 32px !important;
+  position: relative;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.45) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+/* Top Neon Glow Hairline (Electric Blue + Cyan + Emerald) */
+#header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #3B82F6 0%, #06B6D4 50%, #10B981 100%);
+  box-shadow: 0 0 16px rgba(59, 130, 246, 0.7);
+}
+
+/* Header Branding Logo */
+.custom-admin-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none !important;
+}
+
+.logo-flame {
+  font-size: 22px;
+  filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.8));
+}
+
+.logo-title {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: #FFFFFF !important;
+}
+
+.logo-dot {
+  color: var(--brand-cyan-light) !important;
+}
+
+.logo-badge {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.22) 0%, rgba(6, 182, 212, 0.22) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  color: var(--brand-cyan-light) !important;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 9999px;
+  letter-spacing: 0.8px;
+}
+
+/* Header User Tools */
+#user-tools {
+  font-size: 12px !important;
+  color: var(--text-muted) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: normal !important;
+}
+
+#user-tools strong {
+  color: #FFFFFF !important;
+  font-weight: 700;
+}
+
+.admin-top-btn.live-btn {
+  background: linear-gradient(135deg, #3B82F6 0%, #06B6D4 100%) !important;
+  color: #FFFFFF !important;
+  font-weight: 800 !important;
+  font-size: 12px !important;
+  padding: 6px 15px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 14px rgba(59, 130, 246, 0.45) !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  transition: all 0.2s ease !important;
+}
+
+.admin-top-btn.live-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(6, 182, 212, 0.6) !important;
+  filter: brightness(1.1);
+}
+
+.admin-top-link {
+  color: var(--text-muted) !important;
+  text-decoration: none !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  transition: color 0.2s ease !important;
+}
+
+.admin-top-link:hover {
+  color: var(--brand-cyan-light) !important;
+}
+
+.admin-logout-form {
+  display: inline-flex !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.admin-top-logout {
+  background: rgba(239, 68, 68, 0.12) !important;
+  border: 1px solid rgba(239, 68, 68, 0.3) !important;
+  color: #F87171 !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  padding: 5px 12px !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.admin-top-logout:hover {
+  background: rgba(239, 68, 68, 0.25) !important;
+  color: #FFFFFF !important;
+}
+
+/* Hide theme-toggle */
+.theme-toggle {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   4. Breadcrumbs (.breadcrumbs, ol.breadcrumbs, div.breadcrumbs)
+   -------------------------------------------------------------------------- */
+.breadcrumbs,
+ol.breadcrumbs,
+div.breadcrumbs {
+  background: #0A0F1D !important;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.15) !important;
+  color: var(--text-dim) !important;
+  font-size: 12px !important;
+  padding: 10px 32px !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 6px !important;
+}
+
+.breadcrumbs li,
+ol.breadcrumbs li {
+  color: var(--text-dim) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+.breadcrumbs a,
+ol.breadcrumbs a,
+div.breadcrumbs a {
+  color: var(--brand-cyan-light) !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  transition: color 0.15s ease !important;
+}
+
+.breadcrumbs a:hover,
+ol.breadcrumbs a:hover,
+div.breadcrumbs a:hover {
+  color: #FFFFFF !important;
+}
+
+/* --------------------------------------------------------------------------
+   5. Sidebar Navigation with Rectangle Shape Cards (#nav-sidebar)
+   -------------------------------------------------------------------------- */
+#nav-sidebar,
+.main > #nav-sidebar,
+.main.shifted > #nav-sidebar {
+  background-color: #0C1324 !important;
+  border-right: 1px solid rgba(59, 130, 246, 0.2) !important;
+  box-shadow: 6px 0 24px rgba(0, 0, 0, 0.35) !important;
+  width: 290px !important;
+}
+
+.toggle-nav-sidebar {
+  background-color: #0C1324 !important;
+  border-right: 1px solid rgba(59, 130, 246, 0.2) !important;
+  color: var(--brand-cyan-light) !important;
+  font-size: 16px !important;
+  transition: all 0.2s ease !important;
+}
+
+.toggle-nav-sidebar:hover {
+  background-color: #131E35 !important;
+  color: #FFFFFF !important;
+}
+
+/* Sidebar Search Filter Input */
+#nav-filter {
+  background-color: #070B14 !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(59, 130, 246, 0.28) !important;
+  border-radius: 8px !important;
+  padding: 9px 12px !important;
+  margin: 14px 14px 10px 14px !important;
+  width: calc(100% - 28px) !important;
+  font-size: 12px !important;
+  outline: none !important;
+  transition: border-color 0.2s ease !important;
+}
+
+#nav-filter::placeholder {
+  color: #64748B !important;
+}
+
+#nav-filter:focus {
+  border-color: var(--brand-cyan-light) !important;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25) !important;
+}
+
+/* Sidebar App Header */
+#nav-sidebar .module caption,
+#nav-sidebar .module h2 {
+  background: transparent !important;
+  color: var(--brand-cyan-light) !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.8px !important;
+  text-transform: uppercase !important;
+  padding: 10px 16px 6px 16px !important;
+  border: none !important;
+}
+
+#nav-sidebar .module {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin: 0 0 16px 0 !important;
+}
+
+/* Transform Sidebar Table Rows into Modern Rectangular Pill Cards */
+#nav-sidebar table {
+  display: block !important;
+  width: 100% !important;
+  padding: 0 10px !important;
+  border: none !important;
+}
+
+#nav-sidebar tbody {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  width: 100% !important;
+}
+
+#nav-sidebar tr {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  background: rgba(16, 25, 45, 0.65) !important;
+  border: 1px solid rgba(59, 130, 246, 0.16) !important;
+  border-radius: 10px !important;
+  padding: 9px 14px !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+#nav-sidebar tr:hover {
+  background: #142038 !important;
+  border-color: rgba(56, 189, 248, 0.45) !important;
+  transform: translateX(4px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
+}
+
+#nav-sidebar tr.current-model {
+  background: rgba(59, 130, 246, 0.2) !important;
+  border: 1px solid rgba(56, 189, 248, 0.55) !important;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.25) !important;
+}
+
+#nav-sidebar tr th {
+  padding: 0 !important;
+  background: transparent !important;
+  flex: 1 !important;
+}
+
+#nav-sidebar tr th a {
+  color: #E2E8F0 !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  display: block !important;
+  text-decoration: none !important;
+}
+
+#nav-sidebar tr th a:hover {
+  color: #38BDF8 !important;
+}
+
+#nav-sidebar tr.current-model th a {
+  color: #38BDF8 !important;
+  font-weight: 800 !important;
+}
+
+#nav-sidebar tr td {
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+#nav-sidebar tr td a.addlink {
+  background: rgba(16, 185, 129, 0.14) !important;
+  border: 1px solid rgba(16, 185, 129, 0.35) !important;
+  color: #34D399 !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  padding: 3px 8px !important;
+  border-radius: 6px !important;
+  text-decoration: none !important;
+  transition: all 0.15s ease !important;
+}
+
+#nav-sidebar tr td a.addlink:hover {
+  background: rgba(16, 185, 129, 0.3) !important;
+  color: #FFFFFF !important;
+}
+
+/* --------------------------------------------------------------------------
+   6. Object Tools ("ADD ... +" Top-Right Action Button)
+   -------------------------------------------------------------------------- */
+ul.object-tools {
+  margin: 0 0 18px 0 !important;
+  padding: 0 !important;
+  float: right !important;
+  display: flex !important;
+  gap: 10px !important;
+}
+
+ul.object-tools li {
+  list-style: none !important;
+}
+
+ul.object-tools a,
+ul.object-tools a.addlink,
+ul.object-tools a.viewsitelink {
+  background: linear-gradient(135deg, #3B82F6 0%, #06B6D4 100%) !important;
+  color: #FFFFFF !important;
+  font-weight: 800 !important;
+  font-size: 12px !important;
+  padding: 9px 18px !important;
+  border-radius: 8px !important;
+  border: none !important;
+  text-decoration: none !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  transition: all 0.2s ease !important;
+}
+
+ul.object-tools a:hover,
+ul.object-tools a.addlink:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(6, 182, 212, 0.6) !important;
+  filter: brightness(1.1);
+}
+
+/* --------------------------------------------------------------------------
+   7. Changelist Container, Actions Bar & Table Design (Rectangle Format)
+   -------------------------------------------------------------------------- */
+#changelist {
+  background: transparent !important;
+}
+
+#changelist .changelist-form-container {
+  background: transparent !important;
+}
+
+/* Actions Toolbar on top of table */
+#changelist .actions {
+  background: #111A2E !important;
+  border: 1px solid rgba(59, 130, 246, 0.3) !important;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.18) !important;
+  border-radius: 12px 12px 0 0 !important;
+  padding: 12px 18px !important;
+  color: #CBD5E1 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  flex-wrap: wrap !important;
+}
+
+#changelist .actions label {
+  color: #CBD5E1 !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+#changelist .actions select {
+  background: #070B14 !important;
+  border: 1px solid rgba(59, 130, 246, 0.35) !important;
+  color: #FFFFFF !important;
+  border-radius: 8px !important;
+  padding: 6px 12px !important;
+  font-size: 12px !important;
+  height: auto !important;
+}
+
+#changelist .actions select:focus {
+  border-color: var(--brand-cyan-light) !important;
+  outline: none !important;
+}
+
+#changelist .actions .button {
+  background: linear-gradient(135deg, #3B82F6 0%, #06B6D4 100%) !important;
+  color: #FFFFFF !important;
+  font-weight: 800 !important;
+  font-size: 12px !important;
+  padding: 6px 16px !important;
+  border-radius: 8px !important;
+  border: none !important;
+  cursor: pointer !important;
+  box-shadow: 0 2px 12px rgba(59, 130, 246, 0.4) !important;
+  transition: all 0.2s ease !important;
+}
+
+#changelist .actions .button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(6, 182, 212, 0.55) !important;
+}
+
+#changelist .actions span.action-counter,
+#changelist .actions span.all,
+#changelist .actions span.question,
+#changelist .actions span.clear {
+  color: var(--text-muted) !important;
+  font-size: 12px !important;
+  margin: 0 6px !important;
+}
+
+/* Results Container */
+#changelist-form .results {
+  background: #0A0F1D !important;
+  border-left: 1px solid rgba(59, 130, 246, 0.3) !important;
+  border-right: 1px solid rgba(59, 130, 246, 0.3) !important;
+  overflow-x: auto !important;
+}
+
+/* Changelist Table */
+#changelist table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  background: #0A0F1D !important;
+  border: none !important;
+}
+
+#changelist table thead th {
+  background: #131E35 !important;
+  color: var(--brand-cyan-light) !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.8px !important;
+  padding: 14px 18px !important;
+  border-top: none !important;
+  border-bottom: 2px solid rgba(56, 189, 248, 0.4) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.04) !important;
+  text-align: left !important;
+}
+
+#changelist table thead th a {
+  color: var(--brand-cyan-light) !important;
+  text-decoration: none !important;
+}
+
+#changelist table thead th a:hover {
+  color: #FFFFFF !important;
+}
+
+#changelist table tbody tr {
+  background: #0A0F1D !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+  transition: all 0.15s ease !important;
+}
+
+#changelist table tbody tr:nth-child(even) {
+  background: var(--bg-card-row-even) !important;
+}
+
+#changelist table tbody tr:hover {
+  background: #16233E !important;
+  border-left: 3px solid var(--brand-blue) !important;
+}
+
+#changelist table tbody tr.selected {
+  background: rgba(59, 130, 246, 0.18) !important;
+}
+
+#changelist table tbody td,
+#changelist table tbody th {
+  padding: 14px 18px !important;
+  font-size: 13px !important;
+  color: #E2E8F0 !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.03) !important;
+  vertical-align: middle !important;
+}
+
+#changelist table tbody td a,
+#changelist table tbody th a {
+  color: var(--brand-cyan-light) !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  transition: color 0.15s ease !important;
+}
+
+#changelist table tbody td a:hover,
+#changelist table tbody th a:hover {
+  color: #FFFFFF !important;
+  text-decoration: underline !important;
+}
+
+/* Checkbox Inputs */
+input[type="checkbox"] {
+  accent-color: var(--brand-blue) !important;
+  width: 16px !important;
+  height: 16px !important;
+  cursor: pointer !important;
+}
+
+/* Paginator at Table Footer */
+#changelist .paginator,
+p.paginator,
+#changelist .changelist-footer {
+  background: #111A2E !important;
+  border: 1px solid rgba(59, 130, 246, 0.3) !important;
+  border-top: none !important;
+  border-radius: 0 0 12px 12px !important;
+  color: var(--text-muted) !important;
+  font-size: 12px !important;
+  padding: 14px 18px !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+#changelist .paginator a {
+  color: var(--brand-cyan-light) !important;
+  text-decoration: none !important;
+  font-weight: 700 !important;
+  padding: 4px 8px !important;
+  border-radius: 6px !important;
+}
+
+#changelist .paginator a:hover {
+  background: rgba(59, 130, 246, 0.2) !important;
+  color: #FFFFFF !important;
+}
+
+/* Search Toolbar (#toolbar) */
+#toolbar {
+  background: #111A2E !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 12px !important;
+  padding: 12px 16px !important;
+  margin-bottom: 18px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+#toolbar #searchbar,
+#toolbar form input[type="text"] {
+  height: 2.1875rem !important;
+  background: #070B14 !important;
+  border: 1px solid rgba(59, 130, 246, 0.3) !important;
+  color: #FFFFFF !important;
+  border-radius: 8px !important;
+  padding: 6px 12px !important;
+  font-size: 13px !important;
+  vertical-align: middle !important;
+  box-sizing: border-box !important;
+}
+
+#toolbar form input[type="submit"] {
+  height: 2.1875rem !important;
+  background: linear-gradient(135deg, #3B82F6 0%, #06B6D4 100%) !important;
+  color: #FFFFFF !important;
+  font-weight: 800 !important;
+  border-radius: 8px !important;
+  padding: 0 18px !important;
+  border: none !important;
+  cursor: pointer !important;
+  vertical-align: middle !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+/* Changelist Filters on the Right (#changelist-filter) */
+#changelist-filter {
+  background: #111A2E !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 14px !important;
+  padding: 18px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+}
+
+#changelist-filter h2 {
+  color: var(--brand-cyan-light) !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  padding-bottom: 10px !important;
+  margin: 0 0 14px 0 !important;
+}
+
+#changelist-filter h3 {
+  color: var(--brand-blue) !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  margin: 14px 0 6px 0 !important;
+}
+
+#changelist-filter ul {
+  padding-left: 0 !important;
+  list-style: none !important;
+}
+
+#changelist-filter li {
+  margin-bottom: 6px !important;
+}
+
+#changelist-filter li a {
+  color: var(--text-muted) !important;
+  font-size: 12px !important;
+  text-decoration: none !important;
+  transition: all 0.15s ease !important;
+}
+
+#changelist-filter li a:hover {
+  color: #FFFFFF !important;
+}
+
+#changelist-filter li.selected a {
+  color: var(--brand-cyan-light) !important;
+  font-weight: 800 !important;
+}
+
+/* --------------------------------------------------------------------------
+   8. Form Views & Detail Edit Pages
+   -------------------------------------------------------------------------- */
+fieldset {
+  background: #10192D !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 14px !important;
+  padding: 20px 26px !important;
+  margin-bottom: 24px !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25) !important;
+}
+
+fieldset h2 {
+  background: transparent !important;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.25) !important;
+  color: var(--brand-cyan-light) !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  padding-bottom: 10px !important;
+  margin-bottom: 16px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+.form-row {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+  padding: 14px 0 !important;
+}
+
+.form-row:last-child {
+  border-bottom: none !important;
+}
+
+.form-row label {
+  color: #CBD5E1 !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="url"],
+input[type="number"],
+textarea,
+select {
+  background: #070B14 !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(59, 130, 246, 0.3) !important;
+  border-radius: 8px !important;
+  padding: 8px 12px !important;
+  font-size: 13px !important;
+  font-family: inherit !important;
+  transition: all 0.2s ease !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--brand-cyan-light) !important;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25) !important;
+  outline: none !important;
+}
+
+.help,
+p.help {
+  color: var(--text-dim) !important;
+  font-size: 11px !important;
+  margin-top: 4px !important;
+}
+
+/* Submit Row in Edit Forms */
+.submit-row {
+  background: #111A2E !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 12px !important;
+  padding: 14px 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 12px !important;
+  margin-top: 24px !important;
+}
+
+.submit-row input[type="submit"],
+.button,
+a.button {
+  background: linear-gradient(135deg, #3B82F6 0%, #06B6D4 100%) !important;
+  color: #FFFFFF !important;
+  font-weight: 800 !important;
+  font-size: 13px !important;
+  padding: 10px 20px !important;
+  border: none !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4) !important;
+  transition: all 0.2s ease !important;
+  text-decoration: none !important;
+}
+
+.submit-row input[type="submit"]:hover,
+.button:hover,
+a.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(6, 182, 212, 0.6) !important;
+  filter: brightness(1.1);
+}
+
+.submit-row a.deletelink {
+  background: rgba(239, 68, 68, 0.15) !important;
+  border: 1px solid rgba(239, 68, 68, 0.4) !important;
+  color: #F87171 !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  padding: 10px 18px !important;
+  border-radius: 8px !important;
+  text-decoration: none !important;
+  box-shadow: none !important;
+  height: auto !important;
+  line-height: normal !important;
+}
+
+.submit-row a.deletelink:hover {
+  background: rgba(239, 68, 68, 0.25) !important;
+  color: #FFFFFF !important;
+}
+
+/* --------------------------------------------------------------------------
+   9. Showstopper Login Screen (body.login)
+   -------------------------------------------------------------------------- */
+body.login {
+  background: radial-gradient(circle at 50% 25%, rgba(59, 130, 246, 0.2) 0%, rgba(6, 182, 212, 0.1) 35%, #0A0F1D 80%) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 100vh !important;
+}
+
+body.login #container {
+  background: rgba(15, 23, 42, 0.95) !important;
+  border: 1px solid rgba(56, 189, 248, 0.35) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 35px rgba(59, 130, 246, 0.25) !important;
+  padding: 36px 40px !important;
+  width: 100% !important;
+  max-width: 440px !important;
+  backdrop-filter: blur(16px) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+body.login #container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #3B82F6 0%, #06B6D4 50%, #10B981 100%);
+  box-shadow: 0 0 16px rgba(59, 130, 246, 0.8);
+}
+
+body.login #header {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 0 20px 0 !important;
+  text-align: center !important;
+  justify-content: center !important;
+}
+
+body.login #header::before {
+  display: none !important;
+}
+
+body.login #content {
+  padding: 0 !important;
+}
+
+body.login .form-row {
+  margin-bottom: 16px !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+body.login .form-row label {
+  color: var(--text-muted) !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  margin-bottom: 6px !important;
+  display: block !important;
+}
+
+body.login .form-row input {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 12px 14px !important;
+  background: #070B14 !important;
+  border: 1px solid rgba(59, 130, 246, 0.3) !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+  color: #FFFFFF !important;
+}
+
+body.login .submit-row {
+  background: transparent !important;
+  border: none !important;
+  padding: 10px 0 0 0 !important;
+  margin: 0 !important;
+  justify-content: center !important;
+}
+
+body.login .submit-row input {
+  width: 100% !important;
+  padding: 12px !important;
+  font-size: 14px !important;
+  border-radius: 8px !important;
+  justify-content: center !important;
+}
+
+/* System Messages / Alerts */
+ul.messagelist li.success {
+  background: rgba(16, 185, 129, 0.15) !important;
+  color: #34D399 !important;
+  border: 1px solid rgba(16, 185, 129, 0.3) !important;
+  border-radius: 8px;
+  padding: 10px 16px;
+}
+
+ul.messagelist li.error {
+  background: rgba(239, 68, 68, 0.15) !important;
+  color: #F87171 !important;
+  border: 1px solid rgba(239, 68, 68, 0.3) !important;
+  border-radius: 8px;
+  padding: 10px 16px;
+}
+
+/* --------------------------------------------------------------------------
+   10. Real-Time Cyber Toast Notifications & Inquiry Badges
+   -------------------------------------------------------------------------- */
+.admin-toast-container {
+  position: fixed !important;
+  top: 24px !important;
+  right: 24px !important;
+  z-index: 999999 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 14px !important;
+  max-width: 400px !important;
+  width: 90vw !important;
+  pointer-events: none !important;
+}
+
+.cyber-inquiry-toast {
+  pointer-events: auto !important;
+  background: rgba(14, 23, 42, 0.96) !important;
+  border: 1px solid rgba(56, 189, 248, 0.5) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7), 0 0 30px rgba(59, 130, 246, 0.35) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  overflow: hidden !important;
+  position: relative !important;
+  animation: toastSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+  transition: all 0.35s ease !important;
+}
+
+@keyframes toastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(60px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+.toast-glow-bar {
+  height: 3px !important;
+  background: linear-gradient(90deg, #3B82F6 0%, #06B6D4 50%, #10B981 100%) !important;
+  box-shadow: 0 0 12px #38BDF8 !important;
+}
+
+.toast-content {
+  padding: 16px 18px !important;
+}
+
+.toast-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-bottom: 8px !important;
+}
+
+.toast-title {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  color: #38BDF8 !important;
+  letter-spacing: 0.5px !important;
+}
+
+.toast-bell {
+  font-size: 14px !important;
+  animation: bellRing 1.5s infinite !important;
+}
+
+@keyframes bellRing {
+  0%, 100% { transform: rotate(0); }
+  15% { transform: rotate(15deg); }
+  30% { transform: rotate(-15deg); }
+  45% { transform: rotate(10deg); }
+  60% { transform: rotate(0); }
+}
+
+.toast-close-btn {
+  background: transparent !important;
+  border: none !important;
+  color: #94A3B8 !important;
+  font-size: 14px !important;
+  cursor: pointer !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+  transition: color 0.15s !important;
+}
+
+.toast-close-btn:hover {
+  color: #FFFFFF !important;
+}
+
+.toast-sender {
+  font-size: 13px !important;
+  color: #F8FAFC !important;
+  margin-bottom: 4px !important;
+}
+
+.toast-email {
+  color: #38BDF8 !important;
+  font-size: 12px !important;
+}
+
+.toast-subject {
+  font-size: 12px !important;
+  color: #CBD5E1 !important;
+  margin-bottom: 6px !important;
+}
+
+.toast-subject .subj-label {
+  color: #64748B !important;
+}
+
+.toast-preview {
+  font-size: 12px !important;
+  color: #94A3B8 !important;
+  font-style: italic !important;
+  background: rgba(7, 11, 20, 0.6) !important;
+  border: 1px solid rgba(59, 130, 246, 0.18) !important;
+  border-radius: 8px !important;
+  padding: 8px 10px !important;
+  margin-bottom: 12px !important;
+  line-height: 1.45 !important;
+}
+
+.toast-actions {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+.toast-view-btn {
+  background: linear-gradient(135deg, #3B82F6 0%, #06B6D4 100%) !important;
+  color: #FFFFFF !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  padding: 6px 14px !important;
+  border-radius: 6px !important;
+  text-decoration: none !important;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.35) !important;
+  transition: all 0.2s !important;
+}
+
+.toast-view-btn:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 14px rgba(6, 182, 212, 0.55) !important;
+}
+
+.toast-time {
+  font-size: 10px !important;
+  color: #64748B !important;
+  font-family: monospace !important;
+}
+
+/* Header Inquiry Link & Badge */
+.admin-top-inquiry-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  color: #CBD5E1 !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  padding: 5px 12px !important;
+  border-radius: 8px !important;
+  background: rgba(59, 130, 246, 0.12) !important;
+  border: 1px solid rgba(59, 130, 246, 0.28) !important;
+  transition: all 0.2s ease !important;
+}
+
+.admin-top-inquiry-link:hover {
+  color: #FFFFFF !important;
+  background: rgba(59, 130, 246, 0.25) !important;
+  border-color: #38BDF8 !important;
+}
+
+.inquiry-count-badge {
+  background: #EF4444 !important;
+  color: #FFFFFF !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  padding: 1px 6px !important;
+  border-radius: 9999px !important;
+  box-shadow: 0 0 8px #EF4444 !important;
+}
