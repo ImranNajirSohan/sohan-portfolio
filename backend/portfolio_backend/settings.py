@@ -164,7 +164,16 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # Media uploads (Profile avatars, project screenshots, resume files)
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+if os.environ.get('VERCEL') or not os.access(BASE_DIR, os.W_OK):
+    import tempfile
+    MEDIA_ROOT = Path(tempfile.gettempdir()) / 'media'
+else:
+    MEDIA_ROOT = BASE_DIR / 'media'
+
+try:
+    MEDIA_ROOT.mkdir(parents=True, exist_ok=True)
+except Exception:
+    pass
 
 # ==============================================================================
 # EMAIL NOTIFICATION SETTINGS

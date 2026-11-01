@@ -47,7 +47,10 @@ class ProfileAdmin(admin.ModelAdmin):
     )
 
     def avatar_preview(self, obj):
-        url = obj.avatar.url if obj.avatar else obj.avatar_url
+        try:
+            url = obj.avatar.url if (obj.avatar and hasattr(obj.avatar, 'url')) else obj.avatar_url
+        except Exception:
+            url = obj.avatar_url
         if url:
             return format_html('<img src="{}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" />', url)
         return "No Avatar"
@@ -87,7 +90,10 @@ class ProjectAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
 
     def project_thumbnail(self, obj):
-        url = obj.image.url if obj.image else obj.image_url
+        try:
+            url = obj.image.url if (obj.image and hasattr(obj.image, 'url')) else obj.image_url
+        except Exception:
+            url = obj.image_url
         if url:
             return format_html('<img src="{}" style="width: 60px; height: 35px; border-radius: 4px; object-fit: cover;" />', url)
         return "No Image"
