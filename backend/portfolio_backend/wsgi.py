@@ -8,12 +8,21 @@ https://docs.djangoproject.com/en/6.1/howto/deployment/wsgi/
 """
 
 import os
-
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'portfolio_backend.settings')
 
 application = get_wsgi_application()
+
+# Auto-apply database migrations & seed initial portfolio data on first startup
+try:
+    from django.core.management import call_command
+    call_command('migrate', interactive=False)
+    
+    from seed_data import seed
+    seed()
+except Exception as err:
+    print(f"Startup task notification: {err}")
 
 # Expose app for Vercel Serverless Function
 app = application
