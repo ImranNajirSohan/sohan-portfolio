@@ -12,3 +12,4 @@ python3 seed_data.py || true
 
 echo "=== Collecting Static Files ==="
 python3 manage.py collectstatic --noinput --clear
+
