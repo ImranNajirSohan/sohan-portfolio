@@ -30,18 +30,26 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     def get_avatar_display_url(self, obj):
         request = self.context.get('request')
-        if obj.avatar and hasattr(obj.avatar, 'url'):
-            if request:
-                return request.build_absolute_uri(obj.avatar.url)
-            return obj.avatar.url
+        if obj.avatar and hasattr(obj.avatar, 'name') and obj.avatar.name:
+            try:
+                if obj.avatar.storage.exists(obj.avatar.name):
+                    if request:
+                        return request.build_absolute_uri(obj.avatar.url)
+                    return obj.avatar.url
+            except Exception:
+                pass
         return obj.avatar_url or ""
 
     def get_resume_display_url(self, obj):
         request = self.context.get('request')
-        if obj.resume_file and hasattr(obj.resume_file, 'url'):
-            if request:
-                return request.build_absolute_uri(obj.resume_file.url)
-            return obj.resume_file.url
+        if obj.resume_file and hasattr(obj.resume_file, 'name') and obj.resume_file.name:
+            try:
+                if obj.resume_file.storage.exists(obj.resume_file.name):
+                    if request:
+                        return request.build_absolute_uri(obj.resume_file.url)
+                    return obj.resume_file.url
+            except Exception:
+                pass
         return obj.resume_url or "#"
 
     def get_roles_list(self, obj):
@@ -91,10 +99,14 @@ class ProjectSerializer(serializers.ModelSerializer):
 
     def get_image_display_url(self, obj):
         request = self.context.get('request')
-        if obj.image and hasattr(obj.image, 'url'):
-            if request:
-                return request.build_absolute_uri(obj.image.url)
-            return obj.image.url
+        if obj.image and hasattr(obj.image, 'name') and obj.image.name:
+            try:
+                if obj.image.storage.exists(obj.image.name):
+                    if request:
+                        return request.build_absolute_uri(obj.image.url)
+                    return obj.image.url
+            except Exception:
+                pass
         return obj.image_url or ""
 
     def get_tech_stack_list(self, obj):

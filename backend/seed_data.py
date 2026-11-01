@@ -11,6 +11,11 @@ from api.models import (
 )
 
 def seed():
+    # If data already exists, do NOT overwrite user customizations!
+    if Profile.objects.exists():
+        print("Profile already exists in database. Skipping seed to protect user edits.")
+        return
+
     print("Creating default superuser...")
     if not User.objects.filter(username="admin").exists():
         User.objects.create_superuser("admin", "admin@example.com", "admin123")
