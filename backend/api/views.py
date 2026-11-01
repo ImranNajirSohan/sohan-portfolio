@@ -39,8 +39,9 @@ def get_portfolio_all_data(request):
     Main endpoint consumed by the React frontend on initial page load.
     Delivers all dynamic portfolio data in a single optimized JSON payload.
     """
-    profile = Profile.objects.first()
-    settings_obj = SiteSetting.objects.first()
+    # Always fetch the latest updated profile and site settings
+    profile = Profile.objects.order_by('-id').first()
+    settings_obj = SiteSetting.objects.order_by('-id').first()
 
     profile_data = ProfileSerializer(profile, context={'request': request}).data if profile else None
     settings_data = SiteSettingSerializer(settings_obj, context={'request': request}).data if settings_obj else None

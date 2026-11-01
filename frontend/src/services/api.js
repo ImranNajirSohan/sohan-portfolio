@@ -1,14 +1,18 @@
 import axios from 'axios';
 
-// In development, fall back to localhost:8000. In production on the same domain, use relative '/api'
-const API_BASE = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:8000/api' : '/api');
+// In development, fall back to localhost:8000. In production, connect directly to deployed backend API
+const API_BASE = import.meta.env.VITE_API_URL || (
+  import.meta.env.DEV 
+    ? 'http://localhost:8000/api' 
+    : 'https://sohan-portfolio-api.vercel.app/api'
+);
 
 const apiClient = axios.create({
   baseURL: API_BASE,
   headers: {
     'Content-Type': 'application/json',
   },
-  timeout: 8000,
+  timeout: 10000,
 });
 
 // Fallback data in case backend server is initializing
