@@ -69,3 +69,20 @@
     radial-gradient(rgba(59, 130, 246, 0.12) 1px, transparent 1px);
   background-size: 30px 30px;
 }
+
+/* News Marquee Ticker Animation (নিউজ মারকুই স্ক্রল) */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 24s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}

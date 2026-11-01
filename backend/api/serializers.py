@@ -54,11 +54,13 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     def get_roles_list(self, obj):
         """
-        Converts comma-separated roles into a clean Python list for React typewriter.
+        Converts comma, pipe, or newline-separated roles into a clean Python list for React.
         """
         if not obj.typed_roles:
             return []
-        return [r.strip() for r in obj.typed_roles.split(',') if r.strip()]
+        import re
+        roles = re.split(r'[,|\n]+', obj.typed_roles)
+        return [r.strip() for r in roles if r.strip()]
 
 
 class SkillSerializer(serializers.ModelSerializer):

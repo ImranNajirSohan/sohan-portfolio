@@ -113,13 +113,37 @@ export default function Hero({ profile, settings }) {
               </h1>
             </div>
 
-            {/* Dynamic Animated Typewriter Line (Blue to Mint Gradient) */}
-            <div className="min-h-[48px] flex items-center justify-center lg:justify-start text-xl sm:text-3xl lg:text-4xl font-bold">
-              <span className="text-slate-300 mr-2">I am a</span>
-              <span className="bg-gradient-to-r from-[#60A5FA] via-[#38BDF8] to-[#34D399] bg-clip-text text-transparent underline decoration-cyan-400/50 decoration-wavy decoration-2">
-                {displayText}
-              </span>
-              <span className="animate-pulse ml-1 text-cyan-400 font-normal">|</span>
+            {/* Dynamic Animated Headline (Non-breaking layout) */}
+            <div className="min-h-[44px] flex items-center justify-center lg:justify-start text-xl sm:text-2xl lg:text-3xl font-extrabold max-w-full overflow-hidden">
+              <span className="whitespace-nowrap text-slate-300 mr-2 shrink-0">I am a</span>
+              <div className="overflow-hidden whitespace-nowrap text-ellipsis">
+                <span className="bg-gradient-to-r from-[#60A5FA] via-[#38BDF8] to-[#34D399] bg-clip-text text-transparent border-b-2 border-cyan-400/40 pb-0.5">
+                  {displayText}
+                </span>
+                <span className="animate-pulse ml-1 text-cyan-400 font-normal">|</span>
+              </div>
+            </div>
+
+            {/* Cyber News Marquee Ticker (নিউজ মারকুই স্ক্রল - লেখা যতই বড় হোক কখনো ভাঙবে না) */}
+            <div className="w-full max-w-xl mx-auto lg:mx-0 overflow-hidden rounded-xl bg-[#0F172A]/90 border border-blue-500/25 p-1.5 flex items-center shadow-lg shadow-blue-500/5 backdrop-blur-md">
+              <div className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-gradient-to-r from-blue-600 via-cyan-600 to-emerald-600 text-slate-950 font-black text-[11px] uppercase tracking-wider shrink-0 shadow-md">
+                <span className="w-2 h-2 rounded-full bg-slate-950 animate-ping" />
+                <span>LIVE ROLES</span>
+              </div>
+
+              <div className="overflow-hidden relative w-full ml-3 py-0.5">
+                <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-[#0F172A] to-transparent z-10 pointer-events-none" />
+                <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-[#0F172A] to-transparent z-10 pointer-events-none" />
+
+                <div className="animate-marquee flex items-center gap-8 whitespace-nowrap text-xs sm:text-sm font-semibold text-slate-200">
+                  {[...roles, ...roles].map((roleItem, idx) => (
+                    <span key={idx} className="inline-flex items-center gap-2">
+                      <span className="text-cyan-400 text-xs font-bold">⚡</span>
+                      <span className="hover:text-cyan-300 transition-colors tracking-wide">{roleItem}</span>
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
 
             {/* Short Bio */}
