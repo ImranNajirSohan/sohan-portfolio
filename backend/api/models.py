@@ -16,6 +16,29 @@ This file defines the relational database tables managed by Django's ORM:
 
 from django.db import models
 from django.utils.text import slugify
+import io
+import base64
+from PIL import Image
+
+
+def convert_uploaded_image_to_base64(file_obj, max_size=(800, 800)):
+    """
+    Safely converts an uploaded image into a high-quality compressed Base64 Data URL.
+    This guarantees 100% permanence in MySQL across serverless (Vercel) instances without needing S3.
+    """
+    try:
+        file_obj.seek(0)
+        img = Image.open(file_obj)
+        if img.mode in ("RGBA", "P"):
+            img = img.convert("RGB")
+        img.thumbnail(max_size, Image.Resampling.LANCZOS)
+        buf = io.BytesIO()
+        img.save(buf, format="JPEG", quality=85, optimize=True)
+        b64_str = base64.b64encode(buf.getvalue()).decode('utf-8')
+        return f"data:image/jpeg;base64,{b64_str}"
+    except Exception as e:
+        print("Image base64 conversion note:", e)
+        return None
 
 
 class Profile(models.Model):
@@ -36,14 +59,14 @@ class Profile(models.Model):
         blank=True,
         default="Hello! I am Sohan, a software engineer with a proven track record across modern web development stacks. What sets me apart is my dual capability in both Python/Django and PHP/Laravel—enabling me to architect high-throughput microservices, design scalable relational databases (MySQL, PostgreSQL), and craft fluid, interactive user experiences with React.js and Tailwind CSS."
     )
-    avatar = models.ImageField(upload_to='profile/', blank=True, null=True, help_text="Upload your personal photo")
-    avatar_url = models.URLField(
+    avatar = models.ImageField(upload_to='profile/', blank=True, null=True, help_text="Upload your personal photo (auto-saved to cloud database)")
+    avatar_url = models.TextField(
         blank=True,
         default="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80",
-        help_text="Direct image URL if not uploading a file"
+        help_text="Direct image URL or auto-generated photo data"
     )
     resume_file = models.FileField(upload_to='resume/', blank=True, null=True, help_text="Upload your Resume/CV PDF")
-    resume_url = models.URLField(blank=True, default="#", help_text="External link to resume (e.g. Google Drive / GitHub)")
+    resume_url = models.TextField(blank=True, default="#", help_text="External link to resume or PDF data")
     email = models.EmailField(default="sohan.dev@example.com")
     phone = models.CharField(max_length=50, default="+880 1712-345678")
     location = models.CharField(max_length=150, default="Dhaka, Bangladesh")
@@ -63,6 +86,28 @@ class Profile(models.Model):
     class Meta:
         verbose_name = "Personal Profile"
         verbose_name_plural = "Personal Profile"
+
+    def save(self, *args, **kwargs):
+        # Auto-convert uploaded avatar to permanent Base64 Data URL in database
+        if self.avatar and hasattr(self.avatar, 'file'):
+            data_url = convert_uploaded_image_to_base64(self.avatar.file, max_size=(800, 800))
+            if data_url:
+                self.avatar_url = data_url
+                self.avatar = None
+
+        # Auto-convert uploaded resume PDF to Base64 Data URL in database
+        if self.resume_file and hasattr(self.resume_file, 'file'):
+            try:
+                self.resume_file.file.seek(0)
+                pdf_bytes = self.resume_file.file.read()
+                if pdf_bytes and len(pdf_bytes) < 8 * 1024 * 1024:
+                    b64_pdf = base64.b64encode(pdf_bytes).decode('utf-8')
+                    self.resume_url = f"data:application/pdf;base64,{b64_pdf}"
+                    self.resume_file = None
+            except Exception as e:
+                print("Resume conversion note:", e)
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -165,11 +210,11 @@ class Project(models.Model):
     description = models.TextField()
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default='Full Stack')
     tech_stack = models.CharField(max_length=255, help_text="Comma-separated: PHP, Laravel, Python, Django, MySQL, React")
-    image = models.ImageField(upload_to='projects/', blank=True, null=True)
-    image_url = models.URLField(
+    image = models.ImageField(upload_to='projects/', blank=True, null=True, help_text="Upload project screenshot (auto-saved to cloud database)")
+    image_url = models.TextField(
         blank=True,
         default="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1000&q=80",
-        help_text="Preview image URL if not uploading file"
+        help_text="Preview image URL or auto-generated photo data"
     )
     live_url = models.URLField(blank=True, default="")
     github_url = models.URLField(blank=True, default="")
@@ -183,6 +228,14 @@ class Project(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
+
+        # Auto-convert uploaded project screenshot to permanent Base64 Data URL in database
+        if self.image and hasattr(self.image, 'file'):
+            data_url = convert_uploaded_image_to_base64(self.image.file, max_size=(1200, 800))
+            if data_url:
+                self.image_url = data_url
+                self.image = None
+
         super().save(*args, **kwargs)
 
     def __str__(self):
