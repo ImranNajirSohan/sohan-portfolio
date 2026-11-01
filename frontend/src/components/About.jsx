@@ -1,5 +1,5 @@
 import React from 'react';
-import { User, MapPin, Mail, Phone, CheckCircle2, Zap, Code, Layers, Cpu } from 'lucide-react';
+import { User, MapPin, Mail, Phone, CheckCircle2, Zap, Code, Layers, Cpu, Smartphone } from 'lucide-react';
 
 /**
  * About Component (Electric Blue & Neon Mint Theme)
@@ -17,9 +17,9 @@ export default function About({ profile }) {
       icon: Layers 
     },
     { 
-      title: "React & Modern UI Engineering", 
-      desc: "High-speed, responsive frontend experiences built with React, modular component patterns, and Tailwind CSS.", 
-      icon: Zap 
+      title: "React.js & React Native Engineering", 
+      desc: "High-speed, responsive web and cross-platform iOS & Android mobile apps built with React, React Native, and Tailwind CSS.", 
+      icon: Smartphone 
     },
     { 
       title: "Database & MySQL Architecture", 

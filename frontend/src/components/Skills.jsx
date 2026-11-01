@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Cpu, Terminal, Database, Code, Palette, Server, Globe, GitBranch, Box, Shield, Zap, Sparkles, Layers } from 'lucide-react';
+import { Cpu, Terminal, Database, Code, Palette, Server, Globe, GitBranch, Box, Shield, Zap, Sparkles, Layers, Smartphone } from 'lucide-react';
 
 const iconMap = {
   terminal: Terminal,
@@ -15,6 +15,7 @@ const iconMap = {
   zap: Zap,
   sparkles: Sparkles,
   layers: Layers,
+  smartphone: Smartphone,
 };
 
 /**

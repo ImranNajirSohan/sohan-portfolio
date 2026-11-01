@@ -70,6 +70,7 @@ def seed():
         {"name": "RESTful APIs (DRF & Sanctum)", "category": "Backend", "proficiency": 95, "icon_name": "network", "is_featured": True, "order": 3},
         {"name": "Redis & Queue Workers", "category": "Backend", "proficiency": 84, "icon_name": "cpu", "is_featured": False, "order": 4},
         {"name": "React.js", "category": "Frontend", "proficiency": 90, "icon_name": "code", "is_featured": True, "order": 5},
+        {"name": "React Native (iOS & Android)", "category": "Frontend", "proficiency": 90, "icon_name": "smartphone", "is_featured": True, "order": 6},
         {"name": "JavaScript (ES6+)", "category": "Frontend", "proficiency": 92, "icon_name": "sparkles", "is_featured": True, "order": 6},
         {"name": "Tailwind CSS", "category": "Frontend", "proficiency": 95, "icon_name": "palette", "is_featured": True, "order": 7},
         {"name": "Blade & Modern HTML5", "category": "Frontend", "proficiency": 92, "icon_name": "layout", "is_featured": False, "order": 8},
@@ -111,6 +112,13 @@ def seed():
             "icon_name": "database",
             "features": "Complex query profiling & indexing\nACID transactions & data integrity\nAutomated backup & replication setup",
             "order": 4
+        },
+        {
+            "title": "Cross-Platform Mobile App Development (React Native)",
+            "short_description": "Native-grade iOS & Android applications engineered with React Native, high-velocity UX, push notifications, and offline state synchronization.",
+            "icon_name": "smartphone",
+            "features": "React Native iOS & Android Apps\nClean Architecture & Global State\nPush Notifications & REST/GraphQL API Sync",
+            "order": 5
         }
     ]
     for serv in services_data:

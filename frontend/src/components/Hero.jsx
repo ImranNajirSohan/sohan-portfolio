@@ -39,7 +39,7 @@ export default function Hero({ profile, settings }) {
     : [
         "Django & Python Specialist",
         "Laravel & PHP Expert",
-        "React.js Frontend Engineer",
+        "React.js & React Native Engineer",
         "Full-Stack System Architect"
       ];
 

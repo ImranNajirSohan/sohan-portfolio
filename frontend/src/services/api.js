@@ -19,9 +19,9 @@ const apiClient = axios.create({
 const fallbackData = {
   profile: {
     name: "Sohanur Rahman Sohan",
-    tagline: "Full-Stack Software Engineer | Django & Laravel Specialist",
-    typed_roles: "Django & Python Specialist, Laravel & PHP Expert, React.js Frontend Engineer, Full-Stack System Architect",
-    roles_list: ["Django & Python Specialist", "Laravel & PHP Expert", "React.js Frontend Engineer", "Full-Stack System Architect"],
+    tagline: "Full-Stack Software Engineer | Django, Laravel & React Native Specialist",
+    typed_roles: "Django & Python Specialist, Laravel & PHP Expert, React.js & React Native Engineer, Full-Stack System Architect",
+    roles_list: ["Django & Python Specialist", "Laravel & PHP Expert", "React.js & React Native Engineer", "Full-Stack System Architect"],
     short_bio: "Versatile Full-Stack Engineer with deep mastery in both Python/Django and PHP/Laravel ecosystems. I build scalable backend architectures, high-performance REST APIs, and modern React interfaces that drive business growth.",
     full_bio: "Hello! I am Sohan, a software engineer with a proven track record across modern web development stacks. What sets me apart is my dual capability in both Python/Django and PHP/Laravel—enabling me to architect high-throughput microservices, design scalable relational databases (MySQL, PostgreSQL), and craft fluid, interactive user experiences with React.js and Tailwind CSS. Whether your project demands enterprise Python AI/data pipelines or robust Laravel SaaS architectures, I deliver clean, tested, and high-velocity solutions.",
     avatar_display_url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80",
@@ -57,7 +57,8 @@ const fallbackData = {
     { id: 7, name: "RESTful APIs", category: "Backend", proficiency: 95, icon_name: "network", is_featured: true },
     { id: 8, name: "Docker & VPS", category: "DevOps & Cloud", proficiency: 85, icon_name: "box", is_featured: true },
     { id: 9, name: "Redis & Queues", category: "Backend", proficiency: 84, icon_name: "cpu", is_featured: false },
-    { id: 10, name: "Git & GitHub", category: "Tools & Others", proficiency: 92, icon_name: "git-branch", is_featured: true }
+    { id: 10, name: "Git & GitHub", category: "Tools & Others", proficiency: 92, icon_name: "git-branch", is_featured: true },
+    { id: 11, name: "React Native (iOS & Android)", category: "Frontend", proficiency: 90, icon_name: "smartphone", is_featured: true }
   ],
   services: [
     {
@@ -87,6 +88,13 @@ const fallbackData = {
       short_description: "Clean relational schema design, indexing, slow query analysis, and data migration pipelines for high-traffic platforms.",
       icon_name: "database",
       features_list: ["Complex query profiling & indexing", "ACID transactions & data integrity", "Automated backup & replication setup"]
+    },
+    {
+      id: 5,
+      title: "Cross-Platform Mobile App Development (React Native)",
+      short_description: "Native-grade iOS & Android applications engineered with React Native, high-velocity UX, push notifications, and offline state synchronization.",
+      icon_name: "smartphone",
+      features_list: ["React Native iOS & Android Apps", "Clean Architecture & Global State", "Push Notifications & REST/GraphQL API Sync"]
     }
   ],
   experiences: [

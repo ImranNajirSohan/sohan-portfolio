@@ -19,10 +19,31 @@ try:
     from django.core.management import call_command
     call_command('migrate', interactive=False)
     
-    from api.models import Profile
+    from api.models import Profile, Skill, Service
     if not Profile.objects.exists():
         from seed_data import seed
         seed()
+    else:
+        # Ensure React Native is present in Skills
+        if not Skill.objects.filter(name__icontains="React Native").exists():
+            Skill.objects.create(
+                name="React Native (iOS & Android)",
+                category="Frontend",
+                proficiency=90,
+                icon_name="smartphone",
+                is_featured=True,
+                order=5
+            )
+        # Ensure React Native Mobile Development is present in Services
+        if not Service.objects.filter(title__icontains="React Native").exists():
+            Service.objects.create(
+                title="Cross-Platform Mobile App Development (React Native)",
+                short_description="Native-grade iOS & Android applications engineered with React Native, high-velocity UX, push notifications, and offline state synchronization.",
+                icon_name="smartphone",
+                features="React Native iOS & Android Apps\nClean Architecture & Global State\nPush Notifications & REST/GraphQL API Sync",
+                is_active=True,
+                order=5
+            )
 except Exception as err:
     print(f"Startup task notification: {err}")
 

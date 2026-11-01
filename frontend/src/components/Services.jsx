@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layers, Server, Database, Sliders, Check, Zap, ArrowUpRight } from 'lucide-react';
+import { Layers, Server, Database, Sliders, Check, Zap, ArrowUpRight, Smartphone } from 'lucide-react';
 
 const serviceIconMap = {
   layers: Layers,
@@ -7,6 +7,7 @@ const serviceIconMap = {
   database: Database,
   sliders: Sliders,
   zap: Zap,
+  smartphone: Smartphone,
 };
 
 /**
